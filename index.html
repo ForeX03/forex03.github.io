@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="margin: 0 !important; scroll-behavior: smooth;">
+<div id="clock-wrapper" style="display: flex; width: 100vw; height: 100vh; align-items: center; justify-content: center;">
+    <div id="clock" style="display: flex; width: 250px; height: 250px; border: 2px solid black; border-radius: 50%; align-items: center; justify-content: center;">
+        <div style="width: 5px; height: 5px; border-radius: 50%; background-color: black;"></div>
+        <div id="hour-wrapper" style="position: relative;">
+            <div id="hours" style="position: absolute; bottom: 8px; left: 50%; width: fit-content; height: fit-content; offset-anchor: bottom; transform: translateX(-50%)">
+                <div class="h-number"></div>
+                <div class="h-number"></div>
+                <div class="h-number"></div>
+                <div class="h-number"></div>
+            </div>
+        </div>
+        <div id="minute-wrapper" style="position: relative;">
+            <div id="minutes" style="position: absolute; bottom: 8px; left: 50%; width: fit-content; height: fit-content; offset-anchor: bottom; transform: translateX(-50%)">
+                <div class="min-number"></div>
+                <div class="min-number"></div>
+                <div class="min-number"></div>
+                <div class="min-number"></div>
+                <div class="min-number"></div>
+            </div>
+        </div>
+        <div id="second-wrapper" style="position: relative;">
+            <div id="seconds" style="position: absolute; bottom: 8px; left: 50%; width: fit-content; height: fit-content; offset-anchor: bottom; transform: translateX(-50%)">
+                <div class="sec-number"></div>
+                <div class="sec-number"></div>
+                <div class="sec-number"></div>
+                <div class="sec-number"></div>
+                <div class="sec-number"></div>
+                <div class="sec-number"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    setInterval(()=> {
+        const date = new Date();
+        document.getElementById("second-wrapper").style.transform = `rotate(${date.getSeconds()*6}deg)`
+
+        for (let i = 0; i < document.getElementsByClassName("sec-number").length; i++) {
+            const element = document.getElementsByClassName("sec-number")[i];
+
+            if (date.getSeconds()>=55) {
+                element.style.color = "red";
+            } else {
+                element.style.color = "black";
+            }
+
+            element.style.transform = `rotate(${-date.getSeconds()*6}deg)`
+            element.innerHTML = date.getSeconds().toString();
+        }
+
+        document.getElementById("minute-wrapper").style.transform = `rotate(${date.getMinutes()*6}deg)`
+        for (let i = 0; i < document.getElementsByClassName("min-number").length; i++) {
+            const element = document.getElementsByClassName("min-number")[i];
+
+            if (date.getMinutes()>=55) {
+                element.style.color = "red";
+            } else {
+                element.style.color = "black";
+            }
+
+            element.style.transform = `rotate(${-date.getMinutes()*6}deg)`
+            element.innerHTML = date.getMinutes().toString();
+        }
+
+        document.getElementById("hour-wrapper").style.transform = `rotate(${date.getHours()*30}deg)`
+        for (let i = 0; i < document.getElementsByClassName("h-number").length; i++) {
+            const element = document.getElementsByClassName("h-number")[i];
+
+            if (date.getHours()===23) {
+                element.style.color = "red";
+            } else {
+                element.style.color = "black";
+            }
+
+            element.style.transform = `rotate(${-date.getHours()*30}deg)`
+            element.innerHTML = date.getHours().toString();
+        }
+
+    }, 1000);
+</script>
+</body>
+</html>
